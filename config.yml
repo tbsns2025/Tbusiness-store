@@ -1,0 +1,28 @@
+backend:
+  name: github
+  repo: tbsns2025/Tbusiness-store
+  branch: main
+  base_url: https://api.netlify.com
+  auth_endpoint: auth
+
+# ملف بيانات المنتجات الذي سيتم تعديله من لوحة التحكم
+media_folder: "images/products"   # مكان حفظ صور المنتجات المرفوعة
+public_folder: "/images/products"
+
+collections:
+  - name: "products"
+    label: "المنتجات"
+    label_singular: "منتج"
+    files:
+      - file: "data/products.json"
+        label: "قائمة المنتجات"
+        name: "products"
+        fields:
+          - {label: "المنتجات", name: "items", widget: "list", label_singular: "منتج", fields:
+              - {label: "اسم المنتج", name: "name", widget: "string"}
+              - {label: "الفئة", name: "category", widget: "select", options: ["إلكترونيات", "أزياء", "المنزل والمطبخ", "الجمال والعناية", "الرياضة", "الألعاب"]}
+              - {label: "السعر (دج)", name: "price", widget: "number", value_type: "int"}
+              - {label: "السعر قبل الخصم (اختياري)", name: "old_price", widget: "number", value_type: "int", required: false}
+              - {label: "صورة المنتج", name: "image", widget: "image", required: false}
+              - {label: "وصف مختصر (اختياري)", name: "description", widget: "text", required: false}
+            }
