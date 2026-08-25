@@ -1,0 +1,36 @@
+{
+  "items": [
+    {
+      "name": "سماعات لاسلكية عالية الجودة",
+      "category": "إلكترونيات",
+      "price": 4200,
+      "old_price": 5000,
+      "image": "",
+      "description": ""
+    },
+    {
+      "name": "جاكيت شتوي عصري",
+      "category": "أزياء",
+      "price": 3500,
+      "old_price": null,
+      "image": "",
+      "description": ""
+    },
+    {
+      "name": "طقم أواني طبخ 12 قطعة",
+      "category": "المنزل والمطبخ",
+      "price": 6800,
+      "old_price": null,
+      "image": "",
+      "description": ""
+    },
+    {
+      "name": "حذاء جري احترافي",
+      "category": "الرياضة",
+      "price": 5100,
+      "old_price": 6000,
+      "image": "",
+      "description": ""
+    }
+  ]
+}
