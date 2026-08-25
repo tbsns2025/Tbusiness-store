@@ -31,6 +31,12 @@
       "old_price": 6000,
       "image": "",
       "description": ""
+    },
+    {
+      "image": "/images/products/68011.jpg",
+      "category": "أزياء",
+      "price": 2500,
+      "name": "ملابس"
     }
   ]
 }
