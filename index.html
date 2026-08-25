@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tbusiness — كل شيء، في مكان واحد</title>
+<link rel="icon" type="image/png" href="logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;800&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#081226;
+    --navy-2:#0B1A33;
+    --blue:#2E6BE8;
+    --blue-light:#7FB0FF;
+    --silver:#C9D3E0;
+    --amber:#E8A33D;
+    --off:#F7F9FC;
+    --ink:#0B1A33;
+    --muted:#5B6B8C;
+    --radius:14px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    font-family:'Tajawal', sans-serif;
+    background:var(--off);
+    color:var(--ink);
+    line-height:1.7;
+  }
+  h1,h2,h3,.brand{
+    font-family:'Cairo', sans-serif;
+  }
+  img{max-width:100%; display:block;}
+  a{text-decoration:none; color:inherit;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 24px;}
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:14px 28px; border-radius:999px;
+    font-weight:700; font-size:15px; cursor:pointer;
+    border:none; transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .btn:focus-visible{outline:3px solid var(--blue-light); outline-offset:2px;}
+  .btn-primary{background:var(--amber); color:#2B1A02;}
+  .btn-primary:hover{transform:translateY(-2px); box-shadow:0 10px 24px rgba(232,163,61,.35);}
+  .btn-outline{background:transparent; color:#fff; border:1.5px solid rgba(255,255,255,.4);}
+  .btn-outline:hover{border-color:#fff;}
+
+  /* HEADER */
+  header{
+    background:var(--navy);
+    position:sticky; top:0; z-index:50;
+    border-bottom:1px solid rgba(255,255,255,.08);
+  }
+  .topbar{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 0; gap:24px;
+  }
+  .brand{
+    display:flex; align-items:center; gap:10px;
+    color:#fff; font-size:22px; font-weight:800; white-space:nowrap;
+  }
+  .brand .mark{
+    width:42px; height:42px; border-radius:50%;
+    overflow:hidden; flex-shrink:0;
+    box-shadow:0 0 0 2px rgba(127,176,255,.35);
+  }
+  .brand .mark img{width:100%; height:100%; object-fit:cover;}
+  nav{display:flex; gap:28px;}
+  nav a{color:var(--silver); font-weight:500; font-size:15px; transition:color .15s;}
+  nav a:hover{color:#fff;}
+  .search-box{
+    flex:1; max-width:420px; display:flex; align-items:center;
+    background:rgba(255,255,255,.08); border-radius:999px;
+    padding:10px 18px; gap:10px;
+  }
+  .search-box input{
+    background:transparent; border:none; outline:none;
+    color:#fff; font-family:'Tajawal',sans-serif; font-size:14px; width:100%;
+  }
+  .search-box input::placeholder{color:#8FA0C4;}
+  .header-icons{display:flex; align-items:center; gap:18px; color:#fff;}
+  .cart-count{
+    background:var(--amber); color:#2B1A02; font-size:11px; font-weight:800;
+    border-radius:999px; padding:1px 6px; margin-inline-start:-14px; margin-top:-14px;
+  }
+  .mobile-toggle{display:none; color:#fff; font-size:24px; background:none; border:none; cursor:pointer;}
+
+  /* HERO */
+  .hero{
+    background:radial-gradient(circle at 80% 20%, #10306B 0%, var(--navy) 55%);
+    color:#fff; padding:88px 0 64px; position:relative; overflow:hidden;
+  }
+  .hero-swoosh{
+    position:absolute; inset:0; pointer-events:none; opacity:.5;
+  }
+  .hero-inner{
+    display:grid; grid-template-columns:1.1fr .9fr; gap:48px; align-items:center;
+    position:relative; z-index:2;
+  }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    background:rgba(46,107,232,.18); border:1px solid rgba(127,176,255,.35);
+    color:var(--blue-light); font-size:13px; font-weight:700;
+    padding:6px 14px; border-radius:999px; margin-bottom:18px;
+  }
+  .hero h1{
+    font-size:44px; font-weight:800; line-height:1.35; margin-bottom:18px;
+  }
+  .hero h1 span{color:var(--blue-light);}
+  .hero p{color:var(--silver); font-size:16px; max-width:460px; margin-bottom:30px;}
+  .hero-cta{display:flex; gap:14px; flex-wrap:wrap; margin-bottom:36px;}
+  .hero-stats{display:flex; gap:32px;}
+  .hero-stats div{border-inline-start:2px solid var(--amber); padding-inline-start:14px;}
+  .hero-stats b{display:block; font-size:22px; font-family:'Cairo',sans-serif;}
+  .hero-stats span{color:var(--muted); font-size:13px; color:#9FB1D6;}
+
+  .category-orbit{
+    position:relative; height:420px;
+  }
+  .orbit-center{
+    position:absolute; inset:0; margin:auto; width:150px; height:150px;
+    background:linear-gradient(135deg, var(--blue-light), var(--blue));
+    border-radius:50%; display:flex; align-items:center; justify-content:center;
+    font-family:'Cairo',sans-serif; font-weight:800; font-size:15px; text-align:center;
+    box-shadow:0 0 0 14px rgba(46,107,232,.12);
+  }
+  .orbit-item{
+    position:absolute; width:104px; padding:12px 10px; border-radius:12px;
+    background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12);
+    text-align:center; font-size:13px; font-weight:700; color:#fff;
+    backdrop-filter:blur(2px);
+  }
+  .orbit-item span{display:block; font-size:20px; margin-bottom:4px;}
+  .o1{top:0; right:8%;}
+  .o2{top:6%; left:0;}
+  .o3{top:42%; right:0;}
+  .o4{top:48%; left:2%;}
+  .o5{bottom:2%; right:14%;}
+  .o6{bottom:8%; left:16%;}
+
+  /* TRUST BAR */
+  .trust{
+    background:#fff; border-bottom:1px solid #E7EBF3;
+  }
+  .trust-inner{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:24px;
+    padding:26px 0;
+  }
+  .trust-item{display:flex; align-items:center; gap:12px;}
+  .trust-item .ic{
+    width:42px; height:42px; border-radius:10px; background:#EAF1FF;
+    color:var(--blue); display:flex; align-items:center; justify-content:center;
+    font-weight:800; font-family:'Cairo',sans-serif; font-size:16px; flex-shrink:0;
+  }
+  .trust-item b{display:block; font-size:14px;}
+  .trust-item p{font-size:12.5px; color:var(--muted); margin:0;}
+
+  /* SECTIONS */
+  section.pad{padding:72px 0;}
+  .sec-head{display:flex; align-items:flex-end; justify-content:space-between; margin-bottom:34px; gap:16px; flex-wrap:wrap;}
+  .sec-head h2{font-size:28px; font-weight:800;}
+  .sec-head p{color:var(--muted); font-size:14px; margin-top:6px;}
+  .sec-link{color:var(--blue); font-weight:700; font-size:14px; white-space:nowrap;}
+
+  .cat-grid{display:grid; grid-template-columns:repeat(6,1fr); gap:16px;}
+  .cat-card{
+    background:#fff; border:1px solid #E7EBF3; border-radius:var(--radius);
+    padding:22px 14px; text-align:center; transition:border-color .15s, transform .15s;
+  }
+  .cat-card:hover{border-color:var(--blue); transform:translateY(-3px);}
+  .cat-card .ic{font-size:26px; margin-bottom:10px;}
+  .cat-card b{font-size:13.5px; display:block;}
+  .cat-card span{font-size:11.5px; color:var(--muted);}
+
+  .product-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:20px;}
+  .product-card{
+    background:#fff; border:1px solid #E7EBF3; border-radius:var(--radius);
+    overflow:hidden; transition:box-shadow .15s, transform .15s;
+  }
+  .product-card:hover{box-shadow:0 14px 30px rgba(11,26,51,.08); transform:translateY(-3px);}
+  .product-img{
+    height:150px; background:linear-gradient(135deg,#EAF1FF,#F7F9FC);
+    display:flex; align-items:center; justify-content:center; color:var(--blue);
+    font-family:'Cairo',sans-serif; font-weight:800; font-size:13px;
+  }
+  .product-body{padding:16px;}
+  .product-cat{font-size:11px; color:var(--muted); margin-bottom:4px;}
+  .product-title{font-size:14.5px; font-weight:700; margin-bottom:8px;}
+  .product-row{display:flex; align-items:center; justify-content:space-between;}
+  .price{font-family:'Cairo',sans-serif; font-weight:800; color:var(--ink); font-size:16px;}
+  .old-price{font-size:12px; color:var(--muted); text-decoration:line-through; margin-inline-start:6px;}
+  .add-btn{
+    width:34px; height:34px; border-radius:10px; background:var(--navy); color:#fff;
+    border:none; font-size:18px; cursor:pointer;
+  }
+
+  .promo{
+    background:linear-gradient(120deg, var(--navy) 0%, #10306B 100%);
+    color:#fff; border-radius:20px; padding:48px; display:grid;
+    grid-template-columns:1fr 1fr; align-items:center; gap:24px;
+  }
+  .promo h3{font-size:26px; font-weight:800; margin-bottom:12px;}
+  .promo p{color:var(--silver); margin-bottom:22px; max-width:420px;}
+  .promo-badges{display:flex; gap:12px; flex-wrap:wrap; justify-content:flex-end;}
+  .promo-badges div{
+    background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.15);
+    border-radius:14px; padding:16px; width:120px; text-align:center;
+  }
+  .promo-badges b{display:block; font-size:20px; font-family:'Cairo',sans-serif; color:var(--blue-light);}
+  .promo-badges span{font-size:11.5px; color:var(--silver);}
+
+  /* NEWSLETTER */
+  .news{
+    background:#fff; border:1px dashed #C9D3E0; border-radius:var(--radius);
+    padding:36px; display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap;
+  }
+  .news h3{font-size:19px; margin-bottom:6px;}
+  .news p{color:var(--muted); font-size:13.5px;}
+  .news form{display:flex; gap:10px;}
+  .news input{
+    padding:12px 16px; border-radius:999px; border:1px solid #D6DCE8; font-family:'Tajawal',sans-serif;
+    width:240px; outline:none;
+  }
+  .news input:focus{border-color:var(--blue);}
+
+  /* FOOTER */
+  footer{background:var(--navy); color:var(--silver); padding:56px 0 24px; margin-top:40px;}
+  .foot-grid{display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:32px; padding-bottom:36px; border-bottom:1px solid rgba(255,255,255,.1);}
+  .foot-grid h4{color:#fff; font-size:14px; margin-bottom:14px;}
+  .foot-grid ul{list-style:none;}
+  .foot-grid li{margin-bottom:9px; font-size:13.5px;}
+  .foot-grid li a:hover{color:#fff;}
+  .foot-bottom{display:flex; justify-content:space-between; padding-top:20px; font-size:12.5px; color:#7C8AA0; flex-wrap:wrap; gap:10px;}
+
+  /* RESPONSIVE */
+  @media (max-width:960px){
+    nav, .search-box{display:none;}
+    .mobile-toggle{display:block;}
+    .hero-inner{grid-template-columns:1fr;}
+    .category-orbit{display:none;}
+    .cat-grid{grid-template-columns:repeat(3,1fr);}
+    .product-grid{grid-template-columns:repeat(2,1fr);}
+    .trust-inner{grid-template-columns:repeat(2,1fr);}
+    .promo{grid-template-columns:1fr;}
+    .promo-badges{justify-content:flex-start;}
+    .foot-grid{grid-template-columns:1fr 1fr;}
+  }
+  @media (max-width:560px){
+    .hero h1{font-size:32px;}
+    .cat-grid{grid-template-columns:repeat(2,1fr);}
+    .product-grid{grid-template-columns:1fr 1fr;}
+    .news{flex-direction:column; align-items:flex-start;}
+    .news form{width:100%;}
+    .news input{flex:1; width:auto;}
+    .foot-grid{grid-template-columns:1fr;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{transition:none !important;}
+  }
+
+  /* MASCOT */
+  .mascot-fab{
+    position:fixed; bottom:20px; left:18px; z-index:80;
+    width:84px; cursor:pointer; user-select:none;
+    animation:mascotFloat 3.2s ease-in-out infinite;
+    filter:drop-shadow(0 10px 18px rgba(11,26,51,.35));
+  }
+  .mascot-fab img{width:100%; display:block;}
+  @keyframes mascotFloat{
+    0%,100%{transform:translateY(0) rotate(-3deg);}
+    50%{transform:translateY(-14px) rotate(3deg);}
+  }
+  .mascot-bubble{
+    position:absolute; bottom:100%; left:50%; transform:translateX(-38%);
+    background:#fff; color:var(--ink); font-family:'Tajawal',sans-serif;
+    font-size:12.5px; font-weight:700; white-space:nowrap;
+    padding:8px 14px; border-radius:12px; margin-bottom:10px;
+    box-shadow:0 8px 18px rgba(11,26,51,.18);
+    opacity:0; animation:bubbleShow 6s ease-in-out infinite;
+  }
+  .mascot-bubble::after{
+    content:""; position:absolute; top:100%; left:38%;
+    border:6px solid transparent; border-top-color:#fff;
+  }
+  @keyframes bubbleShow{
+    0%,55%{opacity:0; transform:translateX(-38%) translateY(6px);}
+    65%,88%{opacity:1; transform:translateX(-38%) translateY(0);}
+    96%,100%{opacity:0; transform:translateX(-38%) translateY(6px);}
+  }
+  .mascot-hero{
+    position:absolute; width:150px; left:-10px; bottom:-10px; z-index:1;
+    animation:mascotWave 3.6s ease-in-out infinite; opacity:.97;
+  }
+  @keyframes mascotWave{
+    0%,100%{transform:translateY(0) rotate(-2deg);}
+    50%{transform:translateY(-10px) rotate(2deg);}
+  }
+  @media (max-width:960px){
+    .mascot-hero{display:none;}
+    .mascot-fab{width:64px; bottom:14px; left:14px;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .mascot-fab, .mascot-hero{animation:none;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap topbar">
+    <div class="brand">
+      <div class="mark"><img src="logo.png" alt="شعار Tbusiness"></div>
+      Tbusiness
+    </div>
+    <nav>
+      <a href="#">الرئيسية</a>
+      <a href="#categories">الفئات</a>
+      <a href="#products">المنتجات</a>
+      <a href="#offers">العروض</a>
+      <a href="#footer">تواصل معنا</a>
+    </nav>
+    <div class="search-box">
+      <span>⌕</span>
+      <input type="text" placeholder="ابحث عن أي شيء تحتاجه…">
+    </div>
+    <div class="header-icons">
+      <a href="#" aria-label="الحساب">☺</a>
+      <a href="#" aria-label="السلة" style="position:relative;">🛒<span class="cart-count">3</span></a>
+      <button class="mobile-toggle" aria-label="القائمة">≡</button>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <img src="mascot.png" alt="شخصية Tbusiness الترحيبية" class="mascot-hero">
+  <div class="wrap hero-inner">
+    <div>
+      <span class="eyebrow">● منصة تسوق عربية شاملة</span>
+      <h1>كل ما تحتاجه، <span>من مكان واحد</span></h1>
+      <p>إلكترونيات، أزياء، أدوات منزلية، ومنتجات لا حصر لها — كلها في متجر واحد يجمع الجودة بالسعر المناسب وسرعة التوصيل.</p>
+      <div class="hero-cta">
+        <a href="#products" class="btn btn-primary">تسوّق الآن</a>
+        <a href="#categories" class="btn btn-outline">تصفّح الفئات</a>
+      </div>
+      <div class="hero-stats">
+        <div><b>+120</b><span>فئة منتجات</span></div>
+        <div><b>+5000</b><span>عميل راضٍ</span></div>
+        <div><b>24/48س</b><span>توصيل سريع</span></div>
+      </div>
+    </div>
+    <div class="category-orbit" aria-hidden="true">
+      <div class="orbit-center">Tbusiness<br>للكل</div>
+      <div class="orbit-item o1"><span>📱</span>إلكترونيات</div>
+      <div class="orbit-item o2"><span>👗</span>أزياء</div>
+      <div class="orbit-item o3"><span>🏠</span>المنزل</div>
+      <div class="orbit-item o4"><span>💄</span>الجمال</div>
+      <div class="orbit-item o5"><span>⚽</span>رياضة</div>
+      <div class="orbit-item o6"><span>🎮</span>ألعاب</div>
+    </div>
+  </div>
+</section>
+
+<div class="trust">
+  <div class="wrap trust-inner">
+    <div class="trust-item"><div class="ic">🚚</div><div><b>توصيل سريع</b><p>لجميع المناطق</p></div></div>
+    <div class="trust-item"><div class="ic">🔒</div><div><b>دفع آمن</b><p>عدة وسائل دفع</p></div></div>
+    <div class="trust-item"><div class="ic">↺</div><div><b>إرجاع سهل</b><p>خلال 14 يومًا</p></div></div>
+    <div class="trust-item"><div class="ic">☎</div><div><b>دعم متواصل</b><p>على مدار الساعة</p></div></div>
+  </div>
+</div>
+
+<section class="pad" id="categories">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <h2>تسوّق حسب الفئة</h2>
+        <p>من الإلكترونيات إلى الأزياء، كل شيء منظّم ليسهل عليك الوصول إليه</p>
+      </div>
+      <a href="#" class="sec-link">عرض كل الفئات ←</a>
+    </div>
+    <div class="cat-grid">
+      <div class="cat-card"><div class="ic">📱</div><b>إلكترونيات</b><span>320 منتج</span></div>
+      <div class="cat-card"><div class="ic">👗</div><b>أزياء</b><span>540 منتج</span></div>
+      <div class="cat-card"><div class="ic">🏠</div><b>المنزل والمطبخ</b><span>210 منتج</span></div>
+      <div class="cat-card"><div class="ic">💄</div><b>الجمال والعناية</b><span>180 منتج</span></div>
+      <div class="cat-card"><div class="ic">⚽</div><b>الرياضة</b><span>150 منتج</span></div>
+      <div class="cat-card"><div class="ic">🎮</div><b>الألعاب</b><span>95 منتج</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="pad" id="products" style="background:#fff;">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <h2>الأكثر مبيعًا</h2>
+        <p>منتجات مختارة يثق بها عملاؤنا</p>
+      </div>
+      <a href="#" class="sec-link">عرض الكل ←</a>
+    </div>
+    <div class="product-grid" id="productGrid">
+      <p style="grid-column:1/-1; color:var(--muted); font-size:13.5px;">جارٍ تحميل المنتجات…</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pad" id="offers">
+  <div class="wrap">
+    <div class="promo">
+      <div>
+        <h3>عروض نهاية الأسبوع — خصومات تصل إلى 40%</h3>
+        <p>على تشكيلة واسعة من الإلكترونيات والأزياء، لفترة محدودة فقط.</p>
+        <a href="#products" class="btn btn-primary">اكتشف العروض</a>
+      </div>
+      <div class="promo-badges">
+        <div><b>40%</b><span>إلكترونيات</span></div>
+        <div><b>30%</b><span>أزياء</span></div>
+        <div><b>25%</b><span>المنزل</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pad" style="padding-top:0;">
+  <div class="wrap">
+    <div class="news">
+      <div>
+        <h3>لا تفوّت عروضنا الجديدة</h3>
+        <p>اشترك في نشرتنا البريدية واستلم أحدث العروض أولًا بأول</p>
+      </div>
+      <form onsubmit="return false;">
+        <input type="email" placeholder="بريدك الإلكتروني" required>
+        <button type="submit" class="btn btn-primary">اشترك</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer id="footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="brand" style="margin-bottom:14px;">
+          <div class="mark"><img src="logo.png" alt="شعار Tbusiness"></div>
+          Tbusiness
+        </div>
+        <p style="font-size:13.5px; color:#9FB1D6; max-width:280px;">منصتك الشاملة للتسوق أونلاين — إلكترونيات، أزياء، ومنتجات متنوعة بجودة موثوقة وأسعار منافسة.</p>
+      </div>
+      <div>
+        <h4>تسوّق</h4>
+        <ul>
+          <li><a href="#categories">الفئات</a></li>
+          <li><a href="#products">الأكثر مبيعًا</a></li>
+          <li><a href="#offers">العروض</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>الدعم</h4>
+        <ul>
+          <li><a href="#">مركز المساعدة</a></li>
+          <li><a href="#">سياسة الإرجاع</a></li>
+          <li><a href="#">تتبع الطلب</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>تواصل معنا</h4>
+        <ul>
+          <li>support@tbusiness.com</li>
+          <li>+213 000 000 000</li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Tbusiness. جميع الحقوق محفوظة.</span>
+      <span>صُمم بعناية لعملاء يستحقون الأفضل</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // يجلب هذا السكربت بيانات المنتجات من data/products.json
+  // ويعرضها تلقائيًا. أضف أو عدّل المنتجات من لوحة التحكم على /admin
+  fetch('data/products.json')
+    .then(r => r.json())
+    .then(data => {
+      const grid = document.getElementById('productGrid');
+      const items = (data && data.items) || [];
+      if (!items.length){
+        grid.innerHTML = '<p style="grid-column:1/-1; color:var(--muted); font-size:13.5px;">لا توجد منتجات بعد. أضف منتجات من لوحة التحكم في /admin</p>';
+        return;
+      }
+      grid.innerHTML = items.map(p => {
+        const img = p.image
+          ? '<img src="' + p.image + '" alt="' + (p.name || '') + '" style="width:100%;height:100%;object-fit:cover;">'
+          : 'صورة المنتج';
+        const price = (p.price || 0).toLocaleString('ar-DZ') + ' دج';
+        const oldPrice = p.old_price
+          ? '<span class="old-price">' + p.old_price.toLocaleString('ar-DZ') + '</span>'
+          : '';
+        return (
+          '<div class="product-card">' +
+            '<div class="product-img">' + img + '</div>' +
+            '<div class="product-body">' +
+              '<div class="product-cat">' + (p.category || '') + '</div>' +
+              '<div class="product-title">' + (p.name || '') + '</div>' +
+              '<div class="product-row">' +
+                '<div><span class="price">' + price + '</span>' + oldPrice + '</div>' +
+                '<button class="add-btn">+</button>' +
+              '</div>' +
+            '</div>' +
+          '</div>'
+        );
+      }).join('');
+    })
+    .catch(() => {
+      document.getElementById('productGrid').innerHTML =
+        '<p style="grid-column:1/-1; color:var(--muted); font-size:13.5px;">تعذّر تحميل المنتجات حاليًا.</p>';
+    });
+</script>
+
+<div class="mascot-fab" title="مرحبًا بك في Tbusiness">
+  <div class="mascot-bubble">أهلًا! كيف أساعدك اليوم؟ 👋</div>
+  <img src="mascot.png" alt="مساعد Tbusiness الترحيبي">
+</div>
+
+</body>
+</html>
