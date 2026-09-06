@@ -716,7 +716,7 @@
     card.addEventListener('click', () => filterCategory(card.getAttribute('data-cat')));
   });
 
-  /* صفحة تفاصيل المنتج */
+  /* دوال فتح/إغلاق صفحة المنتج (يُعرَّف باقي المنطق لاحقًا بعد تحميل عناصرها في الصفحة) */
   let qvProduct = null;
   let qvQty = 1;
 
@@ -740,29 +740,6 @@
     document.getElementById('qvOverlay').classList.remove('open');
     document.body.style.overflow = '';
   }
-  document.getElementById('qvQtyMinus').addEventListener('click', () => {
-    if (qvQty > 1) qvQty--;
-    document.getElementById('qvQtyValue').textContent = qvQty;
-  });
-  document.getElementById('qvQtyPlus').addEventListener('click', () => {
-    qvQty++;
-    document.getElementById('qvQtyValue').textContent = qvQty;
-  });
-  document.getElementById('qvAddBtn').addEventListener('click', () => {
-    if (!qvProduct) return;
-    for (let i=0; i<qvQty; i++){
-      addToCart({name: qvProduct.name || '', price: qvProduct.price || 0, image: qvProduct.image || ''});
-    }
-    closeQuickView();
-  });
-  document.getElementById('qvOrderBtn').addEventListener('click', () => {
-    if (!qvProduct) return;
-    for (let i=0; i<qvQty; i++){
-      addToCart({name: qvProduct.name || '', price: qvProduct.price || 0, image: qvProduct.image || ''});
-    }
-    closeQuickView();
-    goToCheckoutDirect();
-  });
 </script>
 
 <div class="mascot-fab" title="مرحبًا بك في Tbusiness">
@@ -861,6 +838,31 @@
 </aside>
 
 <script>
+/* ======= أزرار صفحة تفاصيل المنتج (الآن عناصرها موجودة فعليًا في الصفحة) ======= */
+document.getElementById('qvQtyMinus').addEventListener('click', () => {
+  if (qvQty > 1) qvQty--;
+  document.getElementById('qvQtyValue').textContent = qvQty;
+});
+document.getElementById('qvQtyPlus').addEventListener('click', () => {
+  qvQty++;
+  document.getElementById('qvQtyValue').textContent = qvQty;
+});
+document.getElementById('qvAddBtn').addEventListener('click', () => {
+  if (!qvProduct) return;
+  for (let i=0; i<qvQty; i++){
+    addToCart({name: qvProduct.name || '', price: qvProduct.price || 0, image: qvProduct.image || ''});
+  }
+  closeQuickView();
+});
+document.getElementById('qvOrderBtn').addEventListener('click', () => {
+  if (!qvProduct) return;
+  for (let i=0; i<qvQty; i++){
+    addToCart({name: qvProduct.name || '', price: qvProduct.price || 0, image: qvProduct.image || ''});
+  }
+  closeQuickView();
+  goToCheckoutDirect();
+});
+
 /* ======= نظام السلة والطلب عبر واتساب ======= */
 const WHATSAPP_NUMBER = '213540420476';
 let cart = JSON.parse(localStorage.getItem('tb_cart') || '[]');
