@@ -1,0 +1,19 @@
+{
+  "name": "tbusiness-store",
+  "compatibility_date": "2026-01-01",
+  "main": "worker.js",
+  "assets": {
+    "directory": "./",
+    "binding": "ASSETS"
+  },
+  "vars": {
+    "GITHUB_CLIENT_ID": "Ov23li3gLxn4YTncCelW"
+  },
+  "secrets_store_secrets": [
+    {
+      "binding": "GITHUB_CLIENT_SECRET",
+      "store_id": "4ba8986e60bd4e59998160479ded30a5",
+      "secret_name": "github-client-secret"
+    }
+  ]
+}
