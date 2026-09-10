@@ -4,6 +4,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tbusiness — كل شيء، في مكان واحد</title>
+<meta name="description" content="منصة تسوق عربية شاملة: إلكترونيات، أزياء، منتجات منزلية وأكثر — جودة موثوقة، أسعار منافسة، وتوصيل سريع لكل الولايات.">
+
+<!-- Open Graph: تظهر هذه البيانات كمعاينة عند مشاركة رابط الموقع في واتساب أو فيسبوك -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Tbusiness — كل ما تحتاجه، من مكان واحد">
+<meta property="og:description" content="إلكترونيات، أزياء، أدوات منزلية ومنتجات متنوعة — توصيل سريع لكل الولايات، والدفع عند الاستلام.">
+<meta property="og:image" content="https://tbusiness-store.ppc058967.workers.dev/logo.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Tbusiness — كل ما تحتاجه، من مكان واحد">
+<meta name="twitter:description" content="إلكترونيات، أزياء، أدوات منزلية ومنتجات متنوعة — توصيل سريع لكل الولايات.">
+<meta name="twitter:image" content="https://tbusiness-store.ppc058967.workers.dev/logo.png">
+
 <link rel="icon" type="image/png" href="logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -255,8 +267,10 @@
 
   /* RESPONSIVE */
   @media (max-width:960px){
-    nav, .search-box{display:none;}
+    nav{display:none;}
     .mobile-toggle{display:block;}
+    .topbar{flex-wrap:wrap;}
+    .search-box{order:3; max-width:none; width:100%; margin-top:10px;}
     .hero-inner{grid-template-columns:1fr;}
     .category-orbit{display:none;}
     .cat-grid{grid-template-columns:repeat(3,1fr);}
@@ -469,9 +483,9 @@
       <a href="#offers">العروض</a>
       <a href="#footer">تواصل معنا</a>
     </nav>
-    <div class="search-box">
+    <div class="search-box" id="searchBox">
       <span>⌕</span>
-      <input type="text" placeholder="ابحث عن أي شيء تحتاجه…">
+      <input type="text" id="siteSearchInput" placeholder="ابحث عن أي شيء تحتاجه…">
     </div>
     <div class="header-icons">
       <a href="#" aria-label="الحساب">☺</a>
@@ -634,6 +648,7 @@
   // ويعرضها تلقائيًا. أضف أو عدّل المنتجات من لوحة التحكم على /admin
   let allProducts = [];
   let activeCategory = null;
+  let searchTerm = '';
 
   fetch('data/products.json')
     .then(r => r.json())
@@ -648,18 +663,30 @@
 
   function renderProducts(){
     const grid = document.getElementById('productGrid');
-    const items = activeCategory
-      ? allProducts.filter(p => p.category === activeCategory)
-      : allProducts;
+    let items = allProducts;
 
-    document.getElementById('productsSectionTitle').textContent = activeCategory || 'الأكثر مبيعًا';
-    document.getElementById('productsSectionSub').textContent = activeCategory
-      ? 'كل منتجات فئة ' + activeCategory
-      : 'منتجات مختارة يثق بها عملاؤنا';
-    document.getElementById('resetFilterLink').style.display = activeCategory ? 'inline' : 'none';
+    if (searchTerm){
+      const q = searchTerm.trim().toLowerCase();
+      items = items.filter(p =>
+        (p.name || '').toLowerCase().includes(q) ||
+        (p.category || '').toLowerCase().includes(q) ||
+        (p.description || '').toLowerCase().includes(q)
+      );
+    } else if (activeCategory){
+      items = items.filter(p => p.category === activeCategory);
+    }
+
+    const title = searchTerm ? 'نتائج البحث عن "' + searchTerm + '"' : (activeCategory || 'الأكثر مبيعًا');
+    document.getElementById('productsSectionTitle').textContent = title;
+    document.getElementById('productsSectionSub').textContent = searchTerm
+      ? (items.length ? 'تم العثور على ' + items.length + ' نتيجة' : 'جرّب كلمات بحث أخرى')
+      : (activeCategory ? 'كل منتجات فئة ' + activeCategory : 'منتجات مختارة يثق بها عملاؤنا');
+    document.getElementById('resetFilterLink').style.display = (activeCategory || searchTerm) ? 'inline' : 'none';
 
     if (!items.length){
-      grid.innerHTML = '<p style="grid-column:1/-1; color:var(--muted); font-size:13.5px;">لا توجد منتجات في هذه الفئة حاليًا.</p>';
+      grid.innerHTML = '<p style="grid-column:1/-1; color:var(--muted); font-size:13.5px;">' +
+        (searchTerm ? 'لم يتم العثور على منتجات مطابقة لبحثك.' : 'لا توجد منتجات في هذه الفئة حاليًا.') +
+        '</p>';
       return;
     }
 
@@ -710,6 +737,8 @@
 
   function filterCategory(cat){
     activeCategory = cat;
+    searchTerm = '';
+    document.getElementById('siteSearchInput').value = '';
     renderProducts();
     document.querySelectorAll('.cat-card').forEach(c => {
       c.classList.toggle('active', cat && c.getAttribute('data-cat') === cat);
@@ -719,6 +748,27 @@
 
   document.querySelectorAll('#categoryGrid .cat-card').forEach(card => {
     card.addEventListener('click', () => filterCategory(card.getAttribute('data-cat')));
+  });
+
+  /* البحث الفوري في المنتجات */
+  let searchDebounce = null;
+  document.getElementById('siteSearchInput').addEventListener('input', (e) => {
+    clearTimeout(searchDebounce);
+    const value = e.target.value;
+    searchDebounce = setTimeout(() => {
+      searchTerm = value;
+      if (searchTerm) activeCategory = null;
+      renderProducts();
+      if (searchTerm){
+        document.getElementById('products').scrollIntoView({behavior:'smooth'});
+      }
+    }, 300);
+  });
+  document.getElementById('siteSearchInput').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter'){
+      e.preventDefault();
+      document.getElementById('siteSearchInput').blur();
+    }
   });
 
   /* دوال فتح/إغلاق صفحة المنتج (يُعرَّف باقي المنطق لاحقًا بعد تحميل عناصرها في الصفحة) */
