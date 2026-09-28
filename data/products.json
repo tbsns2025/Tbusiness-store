@@ -31,6 +31,22 @@
       "old_price": 6000,
       "image": "",
       "description": ""
+    },
+    {
+      "name": "🐼 Pyjama Panda",
+      "category": "فساتين",
+      "price": 2000,
+      "old_price": null,
+      "stock": null,
+      "image": "images/products/1790629014294-xou6p-2692.jpg",
+      "images": [
+        "images/products/1790629014294-xou6p-2692.jpg",
+        "images/products/1790629016314-9i42u-2691.jpg",
+        "images/products/1790629018237-iz40v-2695.jpg",
+        "images/products/1790629020481-ennlv-2693.jpg",
+        "images/products/1790629022717-nie7v-2696.jpg"
+      ],
+      "description": ""
     }
   ]
 }
