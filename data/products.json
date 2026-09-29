@@ -47,6 +47,21 @@
         "images/products/1790629022717-nie7v-2696.jpg"
       ],
       "description": ""
+    },
+    {
+      "name": "Pyjama bébé",
+      "category": "ملابس أولاد",
+      "price": 800,
+      "old_price": null,
+      "stock": null,
+      "image": "images/products/1790694902273-78874-3225.jpg",
+      "images": [
+        "images/products/1790694902273-78874-3225.jpg",
+        "images/products/1790694904730-6zp7m-3220.jpg",
+        "images/products/1790694906671-o1kga-3221.jpg",
+        "images/products/1790694908284-z8aly-3222.jpg"
+      ],
+      "description": ""
     }
   ]
 }
