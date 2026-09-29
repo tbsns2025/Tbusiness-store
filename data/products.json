@@ -1,14 +1,6 @@
 {
   "items": [
     {
-      "name": "سماعات لاسلكية عالية الجودة",
-      "category": "إلكترونيات",
-      "price": 4200,
-      "old_price": 5000,
-      "image": "",
-      "description": ""
-    },
-    {
       "name": "جاكيت شتوي عصري",
       "category": "أزياء",
       "price": 3500,
