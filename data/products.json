@@ -1,14 +1,6 @@
 {
   "items": [
     {
-      "name": "جاكيت شتوي عصري",
-      "category": "أزياء",
-      "price": 3500,
-      "old_price": null,
-      "image": "",
-      "description": ""
-    },
-    {
       "name": "طقم أواني طبخ 12 قطعة",
       "category": "المنزل والمطبخ",
       "price": 6800,
