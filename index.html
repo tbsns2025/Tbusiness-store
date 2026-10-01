@@ -964,6 +964,7 @@
       <div class="form-field">
         <label>رقم الهاتف</label>
         <input type="tel" id="custPhone" placeholder="0555 12 34 56">
+        <span id="phoneError" style="display:none; color:#C0392B; font-size:12px; margin-top:5px;">رقم غير صحيح، تأكد أنه يبدأ بـ 05 أو 06 أو 07 ويتكوّن من 10 أرقام</span>
       </div>
       <div class="form-field">
         <label>الولاية</label>
@@ -1193,6 +1194,20 @@ document.getElementById('cartActionBtn').addEventListener('click', () => {
   }
 });
 
+function isValidAlgerianPhone(phone){
+  const cleaned = phone.replace(/[\s\-]/g, '');
+  return /^0[5-7]\d{8}$/.test(cleaned) || /^(\+213|213)[5-7]\d{8}$/.test(cleaned);
+}
+
+document.getElementById('custPhone').addEventListener('blur', () => {
+  const phone = document.getElementById('custPhone').value.trim();
+  const errEl = document.getElementById('phoneError');
+  errEl.style.display = (phone && !isValidAlgerianPhone(phone)) ? 'block' : 'none';
+});
+document.getElementById('custPhone').addEventListener('input', () => {
+  document.getElementById('phoneError').style.display = 'none';
+});
+
 function confirmOrder(){
   const name = document.getElementById('custName').value.trim();
   const phone = document.getElementById('custPhone').value.trim();
@@ -1200,6 +1215,19 @@ function confirmOrder(){
   const address = document.getElementById('custAddress').value.trim();
   if (!name || !phone || !wilaya || !address){
     alert('يرجى تعبئة جميع بيانات الطلب (الاسم، الهاتف، الولاية، العنوان).');
+    return;
+  }
+  if (name.length < 3 || /^\d+$/.test(name)){
+    alert('يرجى إدخال اسم صحيح.');
+    return;
+  }
+  if (!isValidAlgerianPhone(phone)){
+    document.getElementById('phoneError').style.display = 'block';
+    alert('رقم الهاتف غير صحيح. يرجى إدخال رقم جزائري صالح (مثال: 0555 12 34 56).');
+    return;
+  }
+  if (address.length < 6){
+    alert('يرجى إدخال عنوان أكثر تفصيلًا (الحي، الشارع، أقرب معلم).');
     return;
   }
   const items = getActiveItems();
